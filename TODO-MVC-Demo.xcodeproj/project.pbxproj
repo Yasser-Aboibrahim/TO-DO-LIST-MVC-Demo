@@ -16,7 +16,11 @@
 		3B1E8DC1255C1F8100E69294 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E8DC0255C1F8100E69294 /* SignInPresenter.swift */; };
 		3B1E8DC3255C28DC00E69294 /* ShowAlertsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1E8DC2255C28DC00E69294 /* ShowAlertsManager.swift */; };
 		3B21E739254D743E004628C6 /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B21E738254D743E004628C6 /* TaskData.swift */; };
+		3B266ECB255F131000828EF3 /* TodoListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B266ECA255F131000828EF3 /* TodoListPresenter.swift */; };
 		3B278ADE254E14DA000CD8CE /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B278ADD254E14DA000CD8CE /* ProfileVC.swift */; };
+		3B47CEE5255EAD6300534E41 /* UserRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE4255EAD6300534E41 /* UserRegister.swift */; };
+		3B47CEE7255ED40700534E41 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE6255ED40700534E41 /* SignUpPresenter.swift */; };
+		3B47CEE9255EE46400534E41 /* ProfilePresnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE8255EE46400534E41 /* ProfilePresnter.swift */; };
 		3B6DA78E25498AE300555B2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6DA78D25498AE300555B2F /* AppDelegate.swift */; };
 		3B6DA79325498AE300555B2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6DA79125498AE300555B2F /* Main.storyboard */; };
 		3B6DA79525498AEA00555B2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B6DA79425498AEA00555B2F /* Assets.xcassets */; };
@@ -47,7 +51,11 @@
 		3B1E8DC0255C1F8100E69294 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		3B1E8DC2255C28DC00E69294 /* ShowAlertsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertsManager.swift; sourceTree = "<group>"; };
 		3B21E738254D743E004628C6 /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
+		3B266ECA255F131000828EF3 /* TodoListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListPresenter.swift; sourceTree = "<group>"; };
 		3B278ADD254E14DA000CD8CE /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		3B47CEE4255EAD6300534E41 /* UserRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegister.swift; sourceTree = "<group>"; };
+		3B47CEE6255ED40700534E41 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
+		3B47CEE8255EE46400534E41 /* ProfilePresnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresnter.swift; sourceTree = "<group>"; };
 		3B6DA78A25498AE300555B2F /* TODO-MVC-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TODO-MVC-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6DA78D25498AE300555B2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B6DA79225498AE300555B2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,6 +142,7 @@
 				3B1DC0B6254CE2D600D8323A /* Task.swift */,
 				3B21E738254D743E004628C6 /* TaskData.swift */,
 				3B1491C92552E1C200C957BC /* UserImage.swift */,
+				3B47CEE4255EAD6300534E41 /* UserRegister.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -197,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				3B6DA7B725498EA100555B2F /* SignUpVC.swift */,
+				3B47CEE6255ED40700534E41 /* SignUpPresenter.swift */,
 				3B6DA7B525498E6600555B2F /* SignInVC.swift */,
 				3B1E8DC0255C1F8100E69294 /* SignInPresenter.swift */,
 			);
@@ -207,7 +217,9 @@
 			isa = PBXGroup;
 			children = (
 				3B6DA7BA25498EFF00555B2F /* TodoListVC.swift */,
+				3B266ECA255F131000828EF3 /* TodoListPresenter.swift */,
 				3B278ADD254E14DA000CD8CE /* ProfileVC.swift */,
+				3B47CEE8255EE46400534E41 /* ProfilePresnter.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -365,6 +377,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B278ADE254E14DA000CD8CE /* ProfileVC.swift in Sources */,
+				3B47CEE7255ED40700534E41 /* SignUpPresenter.swift in Sources */,
+				3B266ECB255F131000828EF3 /* TodoListPresenter.swift in Sources */,
 				3B01663925583EEA006426C9 /* APIRouter.swift in Sources */,
 				3BB729DA25523C450043C655 /* UIView+Loading.swift in Sources */,
 				3B6DA7AC25498D8800555B2F /* Constants.swift in Sources */,
@@ -376,12 +390,14 @@
 				3B1E8DC3255C28DC00E69294 /* ShowAlertsManager.swift in Sources */,
 				3B6DA7AA25498D5400555B2F /* UserDefaultsManager.swift in Sources */,
 				3B6DA78E25498AE300555B2F /* AppDelegate.swift in Sources */,
+				3B47CEE5255EAD6300534E41 /* UserRegister.swift in Sources */,
 				3B21E739254D743E004628C6 /* TaskData.swift in Sources */,
 				3B1DC0B4254CE0CA00D8323A /* TodoCell.swift in Sources */,
 				3B1DC0B7254CE2D600D8323A /* Task.swift in Sources */,
 				3B6DA7BB25498EFF00555B2F /* TodoListVC.swift in Sources */,
 				3B6DA7AF25498DBB00555B2F /* UIViewController+Storyboard.swift in Sources */,
 				3B6DA7B825498EA100555B2F /* SignUpVC.swift in Sources */,
+				3B47CEE9255EE46400534E41 /* ProfilePresnter.swift in Sources */,
 				3B11B6EE255D5B71002355AB /* RegexValidationManager.swift in Sources */,
 				3B1491CA2552E1C200C957BC /* UserImage.swift in Sources */,
 				3B6DA7B125498DE500555B2F /* LoginResponse.swift in Sources */,

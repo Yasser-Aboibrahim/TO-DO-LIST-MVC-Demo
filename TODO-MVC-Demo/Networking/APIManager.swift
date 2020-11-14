@@ -20,8 +20,8 @@ class APIManager {
         }
     }
     
-    class func registerAPIRouter(email: String, password: String, name: String, age: Int, completion: @escaping (Result<LoginResponse,Error>) -> Void){
-        request(APIRouter.register(email, password, name ,age)) { (response) in
+    class func registerAPIRouter(body: UserRegister, completion: @escaping (Result<LoginResponse,Error>) -> Void){
+        request(APIRouter.register(body)) { (response) in
             completion(response)
             
         }
@@ -100,6 +100,13 @@ class APIManager {
             completion(response)
         }
     }
+    
+    class func getingUserImageAPIRouter(completion: @escaping (_ image: UIImage?,_ error: Error?) -> Void){
+        requestBool(APIRouter.getUserImage) { (image,error)  in
+            completion(image,error)
+        }
+    }
+    
 }
 
 extension APIManager{
@@ -117,6 +124,25 @@ extension APIManager{
             .responseJSON { response in
                 print(response)
         }
+    }
+    
+    private static func requestBool(_ urlConvertible: URLRequestConvertible, completion:  @escaping (_ image: UIImage?,_ error: Error?) -> ()) {
+        // Trigger the HttpRequest using AlamoFire
+        AF.request(urlConvertible).response { (response) in
+            guard response.error == nil else{
+                 completion(nil,response.error)
+                 return
+                 }
+            
+            guard let data = response.data else{
+                print("didn't get any data from API")
+                return
+            }
+            
+            let image = UIImage(data: data)
+            completion(image,nil)
+            
+            }
     }
     
 }

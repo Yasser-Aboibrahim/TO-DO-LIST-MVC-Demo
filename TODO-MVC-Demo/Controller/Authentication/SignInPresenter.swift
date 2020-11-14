@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol SignInView: class{
+protocol SignInDelegate: class{
     func showAlert(alertTitle: String,message: String,actionTitle: String)
     func successfullyLoggedIn()
     
@@ -17,9 +17,9 @@ protocol SignInView: class{
 
 class SignInPresenter{
     
-    private weak var delegate: SignInView!
+    private weak var delegate: SignInDelegate!
     
-    init(view: SignInView){
+    init(view: SignInDelegate){
         self.delegate = view
     }
     

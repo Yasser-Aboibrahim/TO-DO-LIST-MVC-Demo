@@ -12,7 +12,7 @@ import Alamofire
 enum APIRouter: URLRequestConvertible{
     
     // The endpoint name
-    case register(_ email: String, _ password: String, _ name: String, _ age: Int)
+    case register(_ body: UserRegister)
     case login(_ email: String, _ password: String)
     case getUserTasks
     case addTask(_ description: String)
@@ -46,8 +46,8 @@ enum APIRouter: URLRequestConvertible{
             return [ParameterKeys.description: description]
         case .updateUserData(let age):
             return [ParameterKeys.age: age]
-        case .register(let email, let password, let name, let age):
-            return [ParameterKeys.email: email, ParameterKeys.password: password,ParameterKeys.name: name,ParameterKeys.age: age]
+        case .register(let body):
+            return [ParameterKeys.email: body.email, ParameterKeys.password: body.password,ParameterKeys.name: body.name,ParameterKeys.age: body.age]
         default:
             return nil
         }
@@ -85,27 +85,31 @@ enum APIRouter: URLRequestConvertible{
         //httpMethod
         urlRequest.httpMethod = method.rawValue
         switch self {
-        case .getUserTasks, .addTask ,.updateUserData, .deleteTask:
+//        case .getUserTasks, .addTask ,.updateUserData, .deleteTask:
+//            urlRequest.setValue("Bearer \(UserDefaultsManager.shared().token ?? "")",
+//                forHTTPHeaderField: HeaderKeys.Authorization)
+//            urlRequest.setValue("application/json", forHTTPHeaderField: HeaderKeys.contentType)
+        case .getUserData, .logout, .uploadUserImage, .getUserTasks, .addTask ,.updateUserData, .deleteTask:
             urlRequest.setValue("Bearer \(UserDefaultsManager.shared().token ?? "")",
                 forHTTPHeaderField: HeaderKeys.Authorization)
-            urlRequest.setValue("application/json", forHTTPHeaderField: HeaderKeys.contentType)
-        case .getUserData, .logout, .uploadUserImage:
-            urlRequest.setValue("Bearer \(UserDefaultsManager.shared().token ?? "")",
-                forHTTPHeaderField: HeaderKeys.Authorization)
-        case .register:
-            urlRequest.setValue("application/json", forHTTPHeaderField: HeaderKeys.contentType)
+//        case .register:
+//            urlRequest.setValue("application/json", forHTTPHeaderField: HeaderKeys.contentType)
         default:
             break
         }
-        //urlRequest.setValue("application/json", forHTTPHeaderField: HeaderKeys.contentType)
+        urlRequest.setValue("application/json", forHTTPHeaderField: HeaderKeys.contentType)
         
         // HTTP Body
         let httpBody: Data? = {
             switch self {
+            case .register(let body):
+                return encodeToJSON(body)
             default:
                 return nil
             }
+            
         }()
+        urlRequest.httpBody = httpBody
         
         // Encoding
         let encoding: ParameterEncoding = {

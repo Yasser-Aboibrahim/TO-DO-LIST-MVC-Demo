@@ -22,7 +22,6 @@ class SignInVC: UIViewController {
         super.viewDidLoad()
         setPlaceHolders()
         UserDefaultsManager.shared().isLoggedIn = false
-        presenter = SignInPresenter(view: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +38,7 @@ class SignInVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> SignInVC {
         let signInVC: SignInVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signInVC)
+        signInVC.presenter = SignInPresenter(view: signInVC.self)
         return signInVC
     }
     
@@ -73,10 +73,10 @@ extension SignInVC{
 }
 
 // MARK:- extension delegate Presenter
-extension SignInVC: SignInView{
+extension SignInVC: SignInDelegate{
     
     func showAlert(alertTitle: String, message: String, actionTitle: String) {
-        ShowAlertsManager.showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
+        showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
     }
     
     func successfullyLoggedIn() {

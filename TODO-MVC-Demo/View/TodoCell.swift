@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TodoCell: UITableViewCell {
+class TodoCell: UITableViewCell, todoCelldelegate {
 
     /// MARK:- Outlets
     @IBOutlet weak var taskLable: UILabel!
@@ -27,9 +27,9 @@ class TodoCell: UITableViewCell {
     }
     
     // MARK:- Public Methods
-    func configure(task: TaskData){
-            taskLable.text = task.description
-    
+
+    func displayTaskDescription(description: String) {
+        taskLable.text = description
     }
 }
 

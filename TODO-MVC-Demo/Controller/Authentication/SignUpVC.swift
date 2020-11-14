@@ -16,6 +16,9 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var userPasswordTextField: UITextField!
     @IBOutlet weak var userAgeTextField: UITextField!
     
+    // MARK:- Properties
+    var presenter: SignUpPresenter!
+    
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +35,7 @@ class SignUpVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> SignUpVC {
         let signUpVC: SignUpVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signUpVC)
+        signUpVC.presenter = SignUpPresenter(view: signUpVC.self)
         return signUpVC
     }
     
@@ -39,11 +43,7 @@ class SignUpVC: UIViewController {
     
     // MARK:- Actions
     @IBAction func signUpSubmittBtn(_ sender: UIButton) {
-       if isDataEntered(){
-            if isValidRegex(){
-                signUpWithEnteredData()
-            }
-        }
+       presenter.signUpUser(name: userNameTextField.text!, email: userEmailTextField.text!, password: userPasswordTextField.text!, age: userAgeTextField.text!, viewController: self)
     }
     
     @IBAction func signInBtn(_ sender: UIButton) {
@@ -60,63 +60,20 @@ extension SignUpVC{
         userAgeTextField.attributedPlaceholder = NSAttributedString(string: "Age", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
     }
     
-    private func isDataEntered()-> Bool{
-        guard userNameTextField.text != "" else{
-            showAlertWithCancel(alertTitle: "Incompleted Data Entry",message: "Please Enter Name",actionTitle: "Dismiss")
-            return false
-        }
-        guard userEmailTextField.text != "" else{
-            showAlertWithCancel(alertTitle: "Incompleted Data Entry",message: "Please Enter email",actionTitle: "Dismiss")
-            return false
-        }
-        guard userPasswordTextField.text != "" else{
-            showAlertWithCancel(alertTitle: "Incompleted Data Entry",message: "Please Enter Password",actionTitle: "Dismiss")
-            return false
-        }
-        return true
-    }
-    
-    private func isValidRegex() -> Bool{
-        guard isValidEmail(email: userEmailTextField.text) else{showAlertWithCancel(alertTitle: "Wrong Email Form",message: "Please Enter Valid email(a@a.com)",actionTitle: "Dismiss")
-            return false
-        }
-        guard isValidPassword(testStr: userPasswordTextField.text) else{
-            showAlertWithCancel(alertTitle: "Wrong Password Form",message: "Password need to be : \n at least one uppercase \n at least one digit \n at leat one lowercase \n characters total",actionTitle: "Dismiss")
-            return false
-        }
-        return true
-    }
-    
     private func goToSignInVC() {
         let signInVC = SignInVC.create()
         navigationController?.pushViewController(signInVC, animated: true)
     }
-    
-    private func goToTodoListVC(){
-        let todoListVC = TodoListVC.create()
-        navigationController?.pushViewController(todoListVC, animated: true)
+}
+
+extension SignUpVC: SignUpDelegate{
+    func showAlert(alertTitle: String, message: String, actionTitle: String) {
+        showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
     }
     
-    private func signUpWithEnteredData(){
-        self.view.showLoading()
-        
-        APIManager.registerAPIRouter(email: userEmailTextField.text!, password: userPasswordTextField.text!, name: userNameTextField.text!, age: Int(userAgeTextField.text!)!){ response in
-            switch response{
-            case .failure(let error):
-                if error.localizedDescription == "The data couldn’t be read because it isn’t in the correct format." {
-                    self.showAlertWithCancel(alertTitle: "Error",message: "Incorrect Email and Password",actionTitle: "Dismiss")
-                }else{
-                    self.showAlertWithCancel(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
-                    print(error.localizedDescription)
-                }
-            case .success(let result):
-                print(result)
-                print("Sign Up Completed")
-            }
-            
-            self.goToSignInVC()
-            self.view.hideLoading()
-        }
-        
+    func successfullySignedUp() {
+        goToSignInVC()
     }
+    
+    
 }
