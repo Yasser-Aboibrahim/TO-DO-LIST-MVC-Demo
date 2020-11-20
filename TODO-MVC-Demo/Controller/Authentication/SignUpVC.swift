@@ -35,7 +35,7 @@ class SignUpVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> SignUpVC {
         let signUpVC: SignUpVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signUpVC)
-        signUpVC.presenter = SignUpPresenter(view: signUpVC.self)
+        signUpVC.presenter = SignUpPresenter(view: signUpVC)
         return signUpVC
     }
     
@@ -43,7 +43,7 @@ class SignUpVC: UIViewController {
     
     // MARK:- Actions
     @IBAction func signUpSubmittBtn(_ sender: UIButton) {
-       presenter.signUpUser(name: userNameTextField.text!, email: userEmailTextField.text!, password: userPasswordTextField.text!, age: userAgeTextField.text!, viewController: self)
+       presenter.signUpUser(name: userNameTextField.text!, email: userEmailTextField.text!, password: userPasswordTextField.text!, age: userAgeTextField.text!)
     }
     
     @IBAction func signInBtn(_ sender: UIButton) {
@@ -60,19 +60,26 @@ extension SignUpVC{
         userAgeTextField.attributedPlaceholder = NSAttributedString(string: "Age", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
     }
     
-    private func goToSignInVC() {
+    
+}
+
+// MARK:- extension SignUp Presenter
+extension SignUpVC{
+    func showAlert(alertTitle: String, message: String, actionTitle: String) {
+        ShowAlertsManager.showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
+    }
+    
+    func goToSignInVC() {
         let signInVC = SignInVC.create()
         navigationController?.pushViewController(signInVC, animated: true)
     }
-}
-
-extension SignUpVC: SignUpDelegate{
-    func showAlert(alertTitle: String, message: String, actionTitle: String) {
-        showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
+    
+    func showLoader() {
+        self.view.showLoading()
     }
     
-    func successfullySignedUp() {
-        goToSignInVC()
+    func hideLoader() {
+        self.view.hideLoading()
     }
     
     

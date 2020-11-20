@@ -9,28 +9,18 @@
 import Foundation
 import UIKit
 
-protocol ProfileDelegate: class{
-    func showAlert(alertTitle: String,message: String,actionTitle: String)
-    func successfullyLoggedOut()
-    func setUserData(userData: UserData)
-    func setUserImage(image: UIImage)
-    func userNameWithNoImage(nameInitials: String)
-    func updateAge(alert: UIAlertController)
-}
-
 class ProfilePresenter{
     
     private var userData: UserData?
-    private weak var delegate: ProfileDelegate!
+    private weak var view: ProfileVC!
     
-    init(view: ProfileDelegate){
-        self.delegate = view
+    init(view: ProfileVC){
+        self.view = view
     }
     
     
      func getUserData(){
-        let viewPresenter = UIView()
-        viewPresenter.showLoading()
+        view.showLoader()
         
         APIManager.getUserDataAPIRouter{ (response) in
             switch response{
@@ -45,15 +35,14 @@ class ProfilePresenter{
             DispatchQueue.main.async {
                 self.getUserImage()
                 self.userNameInitials()
-                viewPresenter.hideLoading()
+                self.view.hideLoader()
             }
             
         }
     }
     
      func getUserImage(){
-        let viewPresenter = UIView()
-        viewPresenter.showLoading()
+        view.showLoader()
 
         APIManager.getingUserImageAPIRouter { (image, error) in
             guard  error == nil else{
@@ -64,27 +53,26 @@ class ProfilePresenter{
                 print("No Image")
                 return
             }
-            self.delegate.setUserImage(image: image!)
-            viewPresenter.hideLoading()
+            self.view.setUserImage(image: image!)
+            self.view.hideLoader()
         }
     }
     
     private func setUserData(){
-            delegate.setUserData(userData: userData!)
+            view.setUserData(userData: userData!)
     }
     
     private func userNameInitials(){
         if let stringInput = userData?.name {
             let initials = stringInput.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
-            delegate.userNameWithNoImage(nameInitials: initials)
+            view.userNameWithNoImage(nameInitials: initials)
         }else{
-            delegate.userNameWithNoImage(nameInitials: "")
+            view.userNameWithNoImage(nameInitials: "")
         }
     }
     
      func logOut(){
-        let viewPresenter = UIView()
-        viewPresenter.showLoading()
+        view.showLoader()
         APIManager.logOutUserAPIRouter{ (response) in
             switch response{
             case .failure(let error):
@@ -94,40 +82,31 @@ class ProfilePresenter{
                 print("Log Out Completed")
             }
             DispatchQueue.main.async {
-                viewPresenter.hideLoading()
+                self.view.hideLoader()
                 UserDefaultsManager.shared().token?.removeAll()
-                self.delegate.successfullyLoggedOut()
+                self.view.successfullyLoggedOut()
             }
         }
     }
     
      func uploadUserImage(image: UIImage){
-        let viewPresenter = UIView()
-        viewPresenter.showLoading()
+        view.showLoader()
         APIManager.uploadUserImage(userImage: image){ error in
             if error != nil {
-                self.delegate.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
+                self.view.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
             } else {
                 print("Uploading photo is Completed")
             }
             DispatchQueue.main.async {
                 self.getUserImage()
-                viewPresenter.hideLoading()
+                self.view.hideLoader()
             }
             
         }
     }
-    func updateUserData(){
-        let viewPresenter = UIView()
-    let alertController = UIAlertController(title: "Update Age", message: "", preferredStyle: UIAlertController.Style.alert)
-    alertController.addTextField { (textField : UITextField!) -> Void in
-    textField.placeholder = "New Age"
-    }
-    let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
-        let taskTextField = alertController.textFields![0] as UITextField
-        if let taskTF = Int(taskTextField.text ?? ""){
-            viewPresenter.showLoading()
-            APIManager.updateUserDataAPIRouter(age: taskTF){ response in
+    func updateUserData(age: Int){
+            view.showLoader()
+            APIManager.updateUserDataAPIRouter(age: age){ response in
                 switch response{
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -137,18 +116,10 @@ class ProfilePresenter{
                 }
                 DispatchQueue.main.async {
                     self.getUserData()
-                    viewPresenter.hideLoading()
+                    self.view.hideLoader()
                 }
             }
-        }else{
-            self.delegate.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
-        }
-    })
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler:nil)
-    
-    alertController.addAction(saveAction)
-    alertController.addAction(cancelAction)
-    delegate.updateAge(alert: alertController)
+        
     }
     
 }

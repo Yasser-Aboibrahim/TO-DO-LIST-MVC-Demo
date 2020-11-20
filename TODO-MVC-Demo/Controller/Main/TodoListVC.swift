@@ -15,8 +15,8 @@ protocol todoCelldelegate{
 class TodoListVC: UIViewController {
     
     // MARK:- Properties
-    var userTasksArr = [TaskData]()
     var presenter: TodoListPresenter!
+    
     // MARK:- Outlets
     @IBOutlet weak var tableView: UITableView!
     
@@ -45,7 +45,7 @@ class TodoListVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> TodoListVC {
         let todoListVC: TodoListVC = UIViewController.create(storyboardName: Storyboards.main, identifier: ViewControllers.todoListVC)
-        todoListVC.presenter = TodoListPresenter(view: todoListVC.self)
+        todoListVC.presenter = TodoListPresenter(view: todoListVC)
         return todoListVC
     }
     
@@ -74,7 +74,7 @@ extension TodoListVC: UITableViewDelegate, UITableViewDataSource{
     
     @objc func deleteTaskBtnTapped(_ sender: UIButton){
         // use the tag of button as index
-        presenter.deleteTask(index: sender.tag)
+        deleteTaskAlert(index: sender.tag)
     }
 }
 
@@ -115,11 +115,10 @@ extension TodoListVC{
     
     @objc private func tapRightBtn(){
         addTaskBtn()
-        
     }
     
     private func addTaskBtn(){
-       presenter.addTask()
+       addTaskAlert()
     }
     
     private func goToProfileVC() {
@@ -128,9 +127,36 @@ extension TodoListVC{
     }
 }
 
-extension TodoListVC: TodoListDelegate{
-    func taskAlert(alert: UIAlertController) {
-        present(alert, animated: true, completion: nil)
+extension TodoListVC{
+    func deleteTaskAlert(index: Int){
+        presenter.getTaskId(index: index)
+        let deleteAlert = UIAlertController(title: "Sorry", message: "Are You Sure You Want To Delete This Task?", preferredStyle: .alert)
+        deleteAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        deleteAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            self.presenter.deleteTask()
+        }))
+        present(deleteAlert,animated: true, completion: nil )
+    }
+    
+    func addTaskAlert(){
+        
+        let alertController = UIAlertController(title: "Add Task", message: "", preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Task"
+        }
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
+            let taskTextField = alertController.textFields![0] as UITextField
+            if let taskTF = taskTextField.text{
+                self.presenter.addTask(task: taskTF)
+            }else{
+                self.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler:nil)
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     func reloadDataWithoutScroll() {
@@ -139,7 +165,15 @@ extension TodoListVC: TodoListDelegate{
     }
     
     func showAlert(alertTitle: String, message: String, actionTitle: String) {
-        showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
+        ShowAlertsManager.showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
+    }
+    
+    func showLoader() {
+        self.view.showLoading()
+    }
+    
+    func hideLoader() {
+        self.view.hideLoading()
     }
     
 }

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+//import UIKit
 
 class RegexValidationManager{
     class func isValidEmail(email: String?)-> Bool{
@@ -17,10 +17,10 @@ class RegexValidationManager{
         return pred.evaluate(with: email)
     }
     
-    class func isValidPassword(testStr: String?)-> Bool{
-        guard testStr != nil else {return false}
+    class func isValidPassword(password: String?)-> Bool{
+        guard password != nil else {return false}
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}")
-        return passwordTest.evaluate(with: testStr)
+        return passwordTest.evaluate(with: password)
         
     }
 }

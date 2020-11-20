@@ -7,68 +7,42 @@
 //
 
 import Foundation
-import UIKit
-
-protocol SignUpDelegate: class{
-    func showAlert(alertTitle: String,message: String,actionTitle: String)
-    func successfullySignedUp()
-    
-}
 
 class SignUpPresenter{
     
-    private weak var delegate: SignUpDelegate!
+    private weak var view: SignUpVC!
     
-    init(view: SignUpDelegate){
-        self.delegate = view
+    init(view: SignUpVC){
+        self.view = view
     }
     
-    
-    private func isDataEntered( name: String, userEmail: String, Password: String, age: String)-> Bool{
-        guard name != "" else{
-            delegate.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Name",actionTitle: "Dismiss")
+    private func userDataValidator( name: String, userEmail: String, Password: String, age: String)-> Bool{
+        guard ValidatorManager.isValidEmail(email: userEmail) else{
             return false
         }
-        guard userEmail != "" else{
-            delegate.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter email",actionTitle: "Dismiss")
+        guard ValidatorManager.isValidPassword(password: Password) else{
             return false
         }
-        guard Password != "" else{
-            delegate.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Password",actionTitle: "Dismiss")
+        guard ValidatorManager.isValidName(name: name) else{
             return false
         }
-        guard age != "" else{
-            delegate.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Age",actionTitle: "Dismiss")
+        guard ValidatorManager.isValidAge(age: age) else{
             return false
         }
         
         return true
     }
     
-    private func isValidRegex(userEmail: String, password: String) -> Bool{
-        guard RegexValidationManager.isValidEmail(email: userEmail) else{
-            delegate.showAlert(alertTitle: "Wrong Email Form",message: "Please Enter Valid email(a@a.com)",actionTitle: "Dismiss")
-            return false
-        }
-        guard RegexValidationManager.isValidPassword(testStr: password) else{
-            delegate.showAlert(alertTitle: "Wrong Password Form",message: "Password need to be : \n at least one uppercase \n at least one digit \n at leat one lowercase \n characters total",actionTitle: "Dismiss")
-            return false
-        }
-        return true
-    }
-    
-    private func signUpWithEnteredData(name: String, userEmail: String, password: String, age: String, viewController: UIViewController){
-        
-        let viewPresenter = UIView()
-        viewPresenter.showLoading()
+    private func signUpWithEnteredData(name: String, userEmail: String, password: String, age: String){
+        view.showLoader()
         let body = UserRegister(name: name, email: userEmail, password: password, age: Int(age)!)
         APIManager.registerAPIRouter(body: body){ response in
             switch response{
             case .failure(let error):
                 if error.localizedDescription == "The data couldn’t be read because it isn’t in the correct format." {
-                    self.delegate.showAlert(alertTitle: "Error",message: "Incorrect Email and Password",actionTitle: "Dismiss")
+                    self.view.showAlert(alertTitle: "Error",message: "Incorrect Email and Password",actionTitle: "Dismiss")
                 }else{
-                    self.delegate.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
+                    self.view.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
                     print(error.localizedDescription)
                 }
             case .success(let result):
@@ -76,17 +50,15 @@ class SignUpPresenter{
                 print("Sign Up Completed")
             }
             
-            self.delegate.successfullySignedUp()
-            viewPresenter.hideLoading()
+            self.view.goToSignInVC()
+            self.view.hideLoader()
         }
     }
     
-    func signUpUser(name: String, email: String, password: String, age: String, viewController: UIViewController){
-        if isDataEntered(name: name, userEmail: email, Password: password, age: age){
-            if isValidRegex(userEmail: email, password: password){
-                signUpWithEnteredData(name: name, userEmail: email, password: password, age: age,viewController: viewController)
-                
-            }
+    func signUpUser(name: String, email: String, password: String, age: String){
+        if userDataValidator(name: name, userEmail: email, Password: password, age: age)
+        {
+             signUpWithEnteredData(name: name, userEmail: email, password: password, age: age)
         }
     }
     

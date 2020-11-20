@@ -7,78 +7,49 @@
 //
 
 import Foundation
-import UIKit
-
-protocol SignInDelegate: class{
-    func showAlert(alertTitle: String,message: String,actionTitle: String)
-    func successfullyLoggedIn()
-    
-}
 
 class SignInPresenter{
+    private weak var view: SignInVC!
     
-    private weak var delegate: SignInDelegate!
-    
-    init(view: SignInDelegate){
-        self.delegate = view
+    init(view: SignInVC){
+        self.view = view
     }
     
-    
-    private func isDataEntered(userEmail: String, Password: String)-> Bool{
-        guard userEmail != "" else{
-            delegate.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Email",actionTitle: "Dismiss")
+    private func userDataValidator(userEmail: String, Password: String)-> Bool{
+        guard ValidatorManager.isValidEmail(email: userEmail) else{
             return false
         }
-        guard Password != "" else{
-            delegate.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Password",actionTitle: "Dismiss")
-            return false
-        }
-
-        return true
-    }
-
-    private func isValidRegex(userEmail: String, Password: String) -> Bool{
-        guard RegexValidationManager.isValidEmail(email: userEmail) else{
-            delegate.showAlert(alertTitle: "Alert",message: "Please Enter Valid Email",actionTitle: "Dismiss")
-            return false
-        }
-        guard RegexValidationManager.isValidPassword(testStr: Password) else{
-            delegate.showAlert(alertTitle: "Alert",message: "Password is Incorect",actionTitle: "Dismiss")
+        guard ValidatorManager.isValidPassword(password: Password) else{
             return false
         }
         return true
     }
     
-     private func signInWithEnteredData(email: String, password: String, viewController: UIViewController){
+     private func signInWithEnteredData(email: String, password: String){
   
-        let viewPresenter = UIView()
-        viewPresenter.showLoading()
-        
+        view.showLoader()
         APIManager.loginAPIRouter(email: email, password: password){ response in
             switch response{
             case .failure(let error):
                 if error.localizedDescription == "The data couldn’t be read because it isn’t in the correct format." {
-                    self.delegate.showAlert(alertTitle: "Error",message: "Incorrect Email and Password",actionTitle: "Dismiss")
+                    self.view.showAlert(alertTitle: "Error",message: "Incorrect Email and Password",actionTitle: "Dismiss")
                 }else{
-                    self.delegate.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
+                    self.view.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
                     print(error.localizedDescription)
                 }
             case .success(let result):
                 print(result.token)
                 UserDefaultsManager.shared().token = result.token
                 UserDefaultsManager.shared().userId = result.user.id
-                self.delegate.successfullyLoggedIn()
+                self.view.goToTodoListVC()
             }
-            viewPresenter.hideLoading()
+            self.view.hideLoader()
         }
     }
     
-    func logInUser(email: String, password: String, viewController: UIViewController){
-        if isDataEntered(userEmail: email, Password: password){
-            if isValidRegex(userEmail: email, Password: password){
-                signInWithEnteredData(email: email, password: password,viewController: viewController)
-                
-            }
+    func logInUser(email: String, password: String){
+        if userDataValidator(userEmail: email, Password: password){
+                signInWithEnteredData(email: email, password: password)
         }
     }
     

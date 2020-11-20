@@ -10,6 +10,8 @@
 		3B01663925583EEA006426C9 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01663825583EEA006426C9 /* APIRouter.swift */; };
 		3B11B6EE255D5B71002355AB /* RegexValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B11B6ED255D5B71002355AB /* RegexValidationManager.swift */; };
 		3B1491CA2552E1C200C957BC /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1491C92552E1C200C957BC /* UserImage.swift */; };
+		3B17B8932567E626008AC8E8 /* String+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B8922567E626008AC8E8 /* String+Trimming.swift */; };
+		3B17B8952567E6DA008AC8E8 /* ValidatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B8942567E6DA008AC8E8 /* ValidatorManager.swift */; };
 		3B1DC0B4254CE0CA00D8323A /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1DC0B2254CE0CA00D8323A /* TodoCell.swift */; };
 		3B1DC0B5254CE0CA00D8323A /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1DC0B3254CE0CA00D8323A /* TodoCell.xib */; };
 		3B1DC0B7254CE2D600D8323A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1DC0B6254CE2D600D8323A /* Task.swift */; };
@@ -45,6 +47,8 @@
 		3B01663825583EEA006426C9 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		3B11B6ED255D5B71002355AB /* RegexValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexValidationManager.swift; sourceTree = "<group>"; };
 		3B1491C92552E1C200C957BC /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
+		3B17B8922567E626008AC8E8 /* String+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Trimming.swift"; sourceTree = "<group>"; };
+		3B17B8942567E6DA008AC8E8 /* ValidatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorManager.swift; sourceTree = "<group>"; };
 		3B1DC0B2254CE0CA00D8323A /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		3B1DC0B3254CE0CA00D8323A /* TodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
 		3B1DC0B6254CE2D600D8323A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 				3B6DA7AE25498DBB00555B2F /* UIViewController+Storyboard.swift */,
 				3B6DA7C0254996F000555B2F /* ViewController+Validation+Alert.swift */,
 				3BB729D925523C450043C655 /* UIView+Loading.swift */,
+				3B17B8922567E626008AC8E8 /* String+Trimming.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				3B6DA7A925498D5400555B2F /* UserDefaultsManager.swift */,
 				3B1E8DC2255C28DC00E69294 /* ShowAlertsManager.swift */,
 				3B11B6ED255D5B71002355AB /* RegexValidationManager.swift */,
+				3B17B8942567E6DA008AC8E8 /* ValidatorManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -396,7 +402,9 @@
 				3B1DC0B7254CE2D600D8323A /* Task.swift in Sources */,
 				3B6DA7BB25498EFF00555B2F /* TodoListVC.swift in Sources */,
 				3B6DA7AF25498DBB00555B2F /* UIViewController+Storyboard.swift in Sources */,
+				3B17B8952567E6DA008AC8E8 /* ValidatorManager.swift in Sources */,
 				3B6DA7B825498EA100555B2F /* SignUpVC.swift in Sources */,
+				3B17B8932567E626008AC8E8 /* String+Trimming.swift in Sources */,
 				3B47CEE9255EE46400534E41 /* ProfilePresnter.swift in Sources */,
 				3B11B6EE255D5B71002355AB /* RegexValidationManager.swift in Sources */,
 				3B1491CA2552E1C200C957BC /* UserImage.swift in Sources */,

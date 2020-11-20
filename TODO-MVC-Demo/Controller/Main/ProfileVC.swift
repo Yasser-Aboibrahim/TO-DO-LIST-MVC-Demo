@@ -54,7 +54,7 @@ class ProfileVC: UITableViewController {
     }
     
     @IBAction func updateUserDataBtnTapped(_ sender: UIButton) {
-        presenter.updateUserData()
+        updateUserDataAlert()
     }
 }
 
@@ -94,9 +94,25 @@ extension ProfileVC{
     }
 }
 
-extension ProfileVC: ProfileDelegate{
-    func updateAge(alert: UIAlertController) {
-        present(alert, animated: true, completion: nil)
+extension ProfileVC{
+    func updateUserDataAlert(){
+        let alertController = UIAlertController(title: "Update Age", message: "", preferredStyle: UIAlertController.Style.alert)
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "New Age"
+        }
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
+            let taskTextField = alertController.textFields![0] as UITextField
+            if let taskTF = Int(taskTextField.text ?? ""){
+               self.presenter.updateUserData(age: taskTF)
+            }else{
+                self.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler:nil)
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        present(alertController,animated:  true, completion: nil)
     }
     
     func successfullyLoggedOut() {
@@ -105,8 +121,9 @@ extension ProfileVC: ProfileDelegate{
     
     
     func showAlert(alertTitle: String, message: String, actionTitle: String) {
-        showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
+        ShowAlertsManager.showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
     }
+    
     func setUserData(userData: UserData) {
         nameLabel.text = userData.name
         emailLabel.text = userData.email
@@ -119,6 +136,14 @@ extension ProfileVC: ProfileDelegate{
     
     func userNameWithNoImage(nameInitials: String) {
         userNameWithNoImage.text = nameInitials
+    }
+    
+    func showLoader() {
+        self.view.showLoading()
+    }
+    
+    func hideLoader() {
+        self.view.hideLoading()
     }
     
     

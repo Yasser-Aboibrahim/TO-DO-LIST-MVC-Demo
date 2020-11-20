@@ -9,33 +9,25 @@
 import Foundation
 import UIKit
 
-protocol TodoListDelegate: class{
-    func showAlert(alertTitle: String,message: String,actionTitle: String)
-    func reloadDataWithoutScroll()
-    func taskAlert(alert: UIAlertController)
-}
-
 class TodoListPresenter{
     
     private var userTasksArr = [TaskData]()
-    private weak var delegate: TodoListDelegate!
+    private weak var view: TodoListVC!
     
-    init(view: TodoListDelegate){
-        self.delegate = view
+    init(view: TodoListVC){
+        self.view = view
     }
     
-    
      func getUserTasks(){
-        let viewPresenter = UIView()
-        viewPresenter.showLoading()
+        view.showLoader()
         
         APIManager.getUserTasksAPIRouter{ (response) in
             switch response{
             case .failure(let error):
                 if error.localizedDescription == "The data couldn’t be read because it isn’t in the correct format." {
-                    self.delegate.showAlert(alertTitle: "Error",message: "Incorrect Email and Password",actionTitle: "Dismiss")
+                    self.view.showAlert(alertTitle: "Error",message: "Incorrect Email and Password",actionTitle: "Dismiss")
                 }else{
-                    self.delegate.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
+                    self.view.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
                     print(error.localizedDescription)
                 }
             case .success(let result):
@@ -46,8 +38,8 @@ class TodoListPresenter{
                         self.userTasksArr = taskArr
                     }
                 }
-                viewPresenter.hideLoading()
-                self.delegate.reloadDataWithoutScroll()
+                self.view.hideLoader()
+                self.view.reloadDataWithoutScroll()
             }
             
         }
@@ -62,15 +54,8 @@ class TodoListPresenter{
         cell.displayTaskDescription(description: task.description)
     }
     
-    
-    func deleteTask(index: Int){
-        let task = userTasksArr[index]
-        UserDefaultsManager.shared().taskId = task.id
-        let deleteAlert = UIAlertController(title: "Sorry", message: "Are You Sure You Want To Delete This Task?", preferredStyle: .alert)
-        
-        deleteAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        deleteAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-            
+    func deleteTask(){
+        view.showLoader()
             APIManager.deleteTaskAPIRouter{ (response) in
                 switch response{
                 case .failure(let error):
@@ -78,54 +63,35 @@ class TodoListPresenter{
                 case .success(let result):
                     print("The task is deleted ")
                     print(result)
-                    
-                    
                 }
                 DispatchQueue.main.async {
                     self.getUserTasks()
-                    self.delegate.reloadDataWithoutScroll()
+                    self.view.reloadDataWithoutScroll()
                 }
-                
-                
+                self.view.hideLoader()
             }
-        }))
-        delegate.taskAlert(alert: deleteAlert)
-        
     }
     
-     func addTask(){
-        let viewPresenter = UIView()
-        let alertController = UIAlertController(title: "Add Task", message: "", preferredStyle: UIAlertController.Style.alert)
-        alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Task"
-        }
-        let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
-            let taskTextField = alertController.textFields![0] as UITextField
-            if let taskTF = taskTextField.text{
-                viewPresenter.showLoading()
-                APIManager.addTaskAPIRouter(description: taskTF){ (response) in
+    func getTaskId(index: Int){
+        let task = userTasksArr[index]
+        UserDefaultsManager.shared().taskId = task.id
+    }
+    
+    func addTask(task: String){
+                self.view.showLoader()
+                APIManager.addTaskAPIRouter(description: task){ (response) in
                     switch response{
                     case .failure(let error):
-                        self.delegate.showAlert(alertTitle: "Error",message: "\(error.localizedDescription)",actionTitle: "Dismiss")
+                        self.view.showAlert(alertTitle: "Error",message: "\(error.localizedDescription)",actionTitle: "Dismiss")
                     case .success(let result):
                         print(result)
                         self.getUserTasks()
                     }
                     DispatchQueue.main.async {
-                        self.delegate.reloadDataWithoutScroll()
+                        self.view.reloadDataWithoutScroll()
                     }
-                    viewPresenter.hideLoading()
-                    
+                    self.view.hideLoader()
                 }
-            }else{
-                self.delegate.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
-            }
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler:nil)
-        
-        alertController.addAction(saveAction)
-        alertController.addAction(cancelAction)
-        self.delegate.taskAlert(alert: alertController)
     }
     
 }
