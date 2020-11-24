@@ -11,17 +11,17 @@ import UIKit
 class SignInVC: UIViewController {
     
     // MARK:- Outlets
-    @IBOutlet weak var userEmailTextField: UITextField!
-    @IBOutlet weak var userPasswordTextField: UITextField!
     
     // MARK:- Properties
     var presenter: SignInPresenter!
+    @IBOutlet var signInView: SignInView!
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlaceHolders()
         UserDefaultsManager.shared().isLoggedIn = false
+        signInView.setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,14 +38,13 @@ class SignInVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> SignInVC {
         let signInVC: SignInVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signInVC)
-        //signInVC.presenter = SignInPresenter(view: signInVC.self)
         signInVC.presenter = SignInPresenter(view: signInVC)
         return signInVC
     }
     
     // MARK:- Actions
     @IBAction func signInSubmittBtn(_ sender: UIButton) {
-        presenter.logInUser(email: userEmailTextField.text!, password: userPasswordTextField.text!)
+        presenter.logInUser(email: signInView.userEmailTextField.text!, password: signInView.userPasswordTextField.text!)
         
     }
     
@@ -57,8 +56,8 @@ class SignInVC: UIViewController {
 // MARK:- Extension Private Methods
 extension SignInVC{
     private func setPlaceHolders(){
-        userEmailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        userPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        signInView.userEmailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        signInView.userPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
     }
     
     

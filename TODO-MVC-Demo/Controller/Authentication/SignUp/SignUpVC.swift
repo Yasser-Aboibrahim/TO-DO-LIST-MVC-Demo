@@ -11,18 +11,21 @@ import UIKit
 class SignUpVC: UIViewController {
     
     // MARK:- Outlets
-    @IBOutlet weak var userNameTextField: UITextField!
-    @IBOutlet weak var userEmailTextField: UITextField!
-    @IBOutlet weak var userPasswordTextField: UITextField!
-    @IBOutlet weak var userAgeTextField: UITextField!
+//    @IBOutlet weak var userNameTextField: UITextField!
+//    @IBOutlet weak var userEmailTextField: UITextField!
+//    @IBOutlet weak var userPasswordTextField: UITextField!
+//    @IBOutlet weak var userAgeTextField: UITextField!
     
     // MARK:- Properties
     var presenter: SignUpPresenter!
+    @IBOutlet var signUpView: SignUpView!
+    
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setPlaceHolders()
+        signUpView.setup()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -42,11 +45,11 @@ class SignUpVC: UIViewController {
     
     
     // MARK:- Actions
-    @IBAction func signUpSubmittBtn(_ sender: UIButton) {
-       presenter.signUpUser(name: userNameTextField.text!, email: userEmailTextField.text!, password: userPasswordTextField.text!, age: userAgeTextField.text!)
+    @IBAction func signUpSubmittBtnTapped(_ sender: UIButton) {
+       presenter.signUpUser(name: signUpView.userNameTextField.text!, email: signUpView.userEmailTextField.text!, password: signUpView.userPasswordTextField.text!, age: signUpView.userAgeTextField.text!)
     }
     
-    @IBAction func signInBtn(_ sender: UIButton) {
+    @IBAction func signInBtnTapped(_ sender: UIButton) {
         goToSignInVC()
     }
 }
@@ -54,10 +57,10 @@ class SignUpVC: UIViewController {
 extension SignUpVC{
     
     private func setPlaceHolders(){
-        userNameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        userEmailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        userPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-        userAgeTextField.attributedPlaceholder = NSAttributedString(string: "Age", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        signUpView.userNameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        signUpView.userEmailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        signUpView.userPasswordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        signUpView.userAgeTextField.attributedPlaceholder = NSAttributedString(string: "Age", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
     }
     
     

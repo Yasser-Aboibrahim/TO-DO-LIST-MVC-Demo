@@ -16,10 +16,34 @@ class SignInPresenter{
     }
     
     private func userDataValidator(userEmail: String, Password: String)-> Bool{
-        guard ValidatorManager.isValidEmail(email: userEmail) else{
+        guard ValidationManager.shared().isValidEmail(email: userEmail) else{
             return false
         }
-        guard ValidatorManager.isValidPassword(password: Password) else{
+        guard ValidationManager.shared().isValidPassword(password: Password) else{
+            return false
+        }
+        return true
+    }
+    
+    private func isDataEntered(userEmail: String, Password: String)-> Bool{
+        guard ValidationManager.shared().isEmptyEmail(email: userEmail) else{
+            view.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Email",actionTitle: "Dismiss")
+            return false
+        }
+        guard ValidationManager.shared().isEmptyPassword(password: Password) else{
+            view.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Password",actionTitle: "Dismiss")
+            return false
+        }
+        return true
+    }
+    
+    private func isValidRegex(userEmail: String, Password: String)-> Bool{
+        guard ValidationManager.shared().isValidEmail(email: userEmail) else{
+            view.showAlert(alertTitle: "Wrong Email Form",message: "Please Enter Valid email(a@a.com)",actionTitle: "Dismiss")
+            return false
+        }
+        guard ValidationManager.shared().isValidPassword(password: Password) else{
+            view.showAlert(alertTitle: "Wrong Password Form",message: "Password need to be : \n at least one uppercase \n at least one digit \n at leat one lowercase \n characters total",actionTitle: "Dismiss")
             return false
         }
         return true
@@ -48,8 +72,10 @@ class SignInPresenter{
     }
     
     func logInUser(email: String, password: String){
-        if userDataValidator(userEmail: email, Password: password){
+        if isDataEntered(userEmail: email, Password: password){
+            if isValidRegex(userEmail: email, Password: password){
                 signInWithEnteredData(email: email, password: password)
+            }
         }
     }
     

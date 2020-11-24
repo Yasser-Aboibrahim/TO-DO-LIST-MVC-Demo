@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3B01663925583EEA006426C9 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B01663825583EEA006426C9 /* APIRouter.swift */; };
-		3B11B6EE255D5B71002355AB /* RegexValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B11B6ED255D5B71002355AB /* RegexValidationManager.swift */; };
 		3B1491CA2552E1C200C957BC /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1491C92552E1C200C957BC /* UserImage.swift */; };
+		3B16BF7E256B6B690098FBB0 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B16BF7D256B6B680098FBB0 /* SignUpView.swift */; };
 		3B17B8932567E626008AC8E8 /* String+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B8922567E626008AC8E8 /* String+Trimming.swift */; };
-		3B17B8952567E6DA008AC8E8 /* ValidatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B8942567E6DA008AC8E8 /* ValidatorManager.swift */; };
 		3B1DC0B4254CE0CA00D8323A /* TodoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1DC0B2254CE0CA00D8323A /* TodoCell.swift */; };
 		3B1DC0B5254CE0CA00D8323A /* TodoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1DC0B3254CE0CA00D8323A /* TodoCell.xib */; };
 		3B1DC0B7254CE2D600D8323A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1DC0B6254CE2D600D8323A /* Task.swift */; };
@@ -23,6 +22,7 @@
 		3B47CEE5255EAD6300534E41 /* UserRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE4255EAD6300534E41 /* UserRegister.swift */; };
 		3B47CEE7255ED40700534E41 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE6255ED40700534E41 /* SignUpPresenter.swift */; };
 		3B47CEE9255EE46400534E41 /* ProfilePresnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE8255EE46400534E41 /* ProfilePresnter.swift */; };
+		3B636F10256A8D3E0085C74D /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B636F0F256A8D3E0085C74D /* ValidationManager.swift */; };
 		3B6DA78E25498AE300555B2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6DA78D25498AE300555B2F /* AppDelegate.swift */; };
 		3B6DA79325498AE300555B2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6DA79125498AE300555B2F /* Main.storyboard */; };
 		3B6DA79525498AEA00555B2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B6DA79425498AEA00555B2F /* Assets.xcassets */; };
@@ -37,7 +37,7 @@
 		3B6DA7B825498EA100555B2F /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6DA7B725498EA100555B2F /* SignUpVC.swift */; };
 		3B6DA7BB25498EFF00555B2F /* TodoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6DA7BA25498EFF00555B2F /* TodoListVC.swift */; };
 		3B6DA7BF2549901900555B2F /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6DA7BE2549901900555B2F /* Authentication.storyboard */; };
-		3B6DA7C1254996F000555B2F /* ViewController+Validation+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6DA7C0254996F000555B2F /* ViewController+Validation+Alert.swift */; };
+		3B7183C9256D7E5200546442 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7183C8256D7E5200546442 /* SignInView.swift */; };
 		3BB729DA25523C450043C655 /* UIView+Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB729D925523C450043C655 /* UIView+Loading.swift */; };
 		D95B7DB7C6BEBC28605F5079 /* Pods_TODO_MVC_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BB0D0AC98384A0B1FDEFAC4 /* Pods_TODO_MVC_Demo.framework */; };
 /* End PBXBuildFile section */
@@ -45,10 +45,9 @@
 /* Begin PBXFileReference section */
 		025C9330C9490EFC385C0B8E /* Pods-TODO-MVC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-MVC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-TODO-MVC-Demo/Pods-TODO-MVC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		3B01663825583EEA006426C9 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
-		3B11B6ED255D5B71002355AB /* RegexValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegexValidationManager.swift; sourceTree = "<group>"; };
 		3B1491C92552E1C200C957BC /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
+		3B16BF7D256B6B680098FBB0 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		3B17B8922567E626008AC8E8 /* String+Trimming.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Trimming.swift"; sourceTree = "<group>"; };
-		3B17B8942567E6DA008AC8E8 /* ValidatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorManager.swift; sourceTree = "<group>"; };
 		3B1DC0B2254CE0CA00D8323A /* TodoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoCell.swift; sourceTree = "<group>"; };
 		3B1DC0B3254CE0CA00D8323A /* TodoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodoCell.xib; sourceTree = "<group>"; };
 		3B1DC0B6254CE2D600D8323A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		3B47CEE4255EAD6300534E41 /* UserRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegister.swift; sourceTree = "<group>"; };
 		3B47CEE6255ED40700534E41 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
 		3B47CEE8255EE46400534E41 /* ProfilePresnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresnter.swift; sourceTree = "<group>"; };
+		3B636F0F256A8D3E0085C74D /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
 		3B6DA78A25498AE300555B2F /* TODO-MVC-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TODO-MVC-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6DA78D25498AE300555B2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B6DA79225498AE300555B2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		3B6DA7B725498EA100555B2F /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		3B6DA7BA25498EFF00555B2F /* TodoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListVC.swift; sourceTree = "<group>"; };
 		3B6DA7BE2549901900555B2F /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
-		3B6DA7C0254996F000555B2F /* ViewController+Validation+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Validation+Alert.swift"; sourceTree = "<group>"; };
+		3B7183C8256D7E5200546442 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		3BB729D925523C450043C655 /* UIView+Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loading.swift"; sourceTree = "<group>"; };
 		6BB0D0AC98384A0B1FDEFAC4 /* Pods_TODO_MVC_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODO_MVC_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F7623133E058379015E378F /* Pods-TODO-MVC-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODO-MVC-Demo.release.xcconfig"; path = "Target Support Files/Pods-TODO-MVC-Demo/Pods-TODO-MVC-Demo.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +94,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B16BF78256B69460098FBB0 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3B16BF79256B69750098FBB0 /* Authentication */,
+				3B16BF7A256B698B0098FBB0 /* Main */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		3B16BF79256B69750098FBB0 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				3B47CEE6255ED40700534E41 /* SignUpPresenter.swift */,
+				3B1E8DC0255C1F8100E69294 /* SignInPresenter.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		3B16BF7A256B698B0098FBB0 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3B266ECA255F131000828EF3 /* TodoListPresenter.swift */,
+				3B47CEE8255EE46400534E41 /* ProfilePresnter.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		3B16BF7B256B6ACF0098FBB0 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				3B6DA7B725498EA100555B2F /* SignUpVC.swift */,
+				3B16BF7D256B6B680098FBB0 /* SignUpView.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		3B16BF7C256B6AE60098FBB0 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				3B6DA7B525498E6600555B2F /* SignInVC.swift */,
+				3B7183C8256D7E5200546442 /* SignInView.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
 		3B6DA78125498AE300555B2F = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +167,7 @@
 				3B6DA7A125498C6B00555B2F /* Extensions */,
 				3B6DA7A025498C5F00555B2F /* Model */,
 				3B6DA7A625498C9F00555B2F /* View */,
+				3B16BF78256B69460098FBB0 /* Presenter */,
 				3B6DA7A525498C9500555B2F /* Controller */,
 				3B6DA7A425498C8800555B2F /* Resources */,
 				3B6DA79925498AEA00555B2F /* Info.plist */,
@@ -155,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				3B6DA7AE25498DBB00555B2F /* UIViewController+Storyboard.swift */,
-				3B6DA7C0254996F000555B2F /* ViewController+Validation+Alert.swift */,
 				3BB729D925523C450043C655 /* UIView+Loading.swift */,
 				3B17B8922567E626008AC8E8 /* String+Trimming.swift */,
 			);
@@ -175,8 +220,7 @@
 			children = (
 				3B6DA7A925498D5400555B2F /* UserDefaultsManager.swift */,
 				3B1E8DC2255C28DC00E69294 /* ShowAlertsManager.swift */,
-				3B11B6ED255D5B71002355AB /* RegexValidationManager.swift */,
-				3B17B8942567E6DA008AC8E8 /* ValidatorManager.swift */,
+				3B636F0F256A8D3E0085C74D /* ValidationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -211,10 +255,8 @@
 		3B6DA7B425498E4100555B2F /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				3B6DA7B725498EA100555B2F /* SignUpVC.swift */,
-				3B47CEE6255ED40700534E41 /* SignUpPresenter.swift */,
-				3B6DA7B525498E6600555B2F /* SignInVC.swift */,
-				3B1E8DC0255C1F8100E69294 /* SignInPresenter.swift */,
+				3B16BF7B256B6ACF0098FBB0 /* SignUp */,
+				3B16BF7C256B6AE60098FBB0 /* SignIn */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -223,9 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				3B6DA7BA25498EFF00555B2F /* TodoListVC.swift */,
-				3B266ECA255F131000828EF3 /* TodoListPresenter.swift */,
 				3B278ADD254E14DA000CD8CE /* ProfileVC.swift */,
-				3B47CEE8255EE46400534E41 /* ProfilePresnter.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -390,8 +430,8 @@
 				3B6DA7AC25498D8800555B2F /* Constants.swift in Sources */,
 				3B6DA7A825498D2500555B2F /* APIManager.swift in Sources */,
 				3B6DA7B625498E6600555B2F /* SignInVC.swift in Sources */,
+				3B7183C9256D7E5200546442 /* SignInView.swift in Sources */,
 				3B1E8DC1255C1F8100E69294 /* SignInPresenter.swift in Sources */,
-				3B6DA7C1254996F000555B2F /* ViewController+Validation+Alert.swift in Sources */,
 				3B6DA7B325498DFD00555B2F /* UserData.swift in Sources */,
 				3B1E8DC3255C28DC00E69294 /* ShowAlertsManager.swift in Sources */,
 				3B6DA7AA25498D5400555B2F /* UserDefaultsManager.swift in Sources */,
@@ -402,11 +442,11 @@
 				3B1DC0B7254CE2D600D8323A /* Task.swift in Sources */,
 				3B6DA7BB25498EFF00555B2F /* TodoListVC.swift in Sources */,
 				3B6DA7AF25498DBB00555B2F /* UIViewController+Storyboard.swift in Sources */,
-				3B17B8952567E6DA008AC8E8 /* ValidatorManager.swift in Sources */,
+				3B636F10256A8D3E0085C74D /* ValidationManager.swift in Sources */,
 				3B6DA7B825498EA100555B2F /* SignUpVC.swift in Sources */,
 				3B17B8932567E626008AC8E8 /* String+Trimming.swift in Sources */,
 				3B47CEE9255EE46400534E41 /* ProfilePresnter.swift in Sources */,
-				3B11B6EE255D5B71002355AB /* RegexValidationManager.swift in Sources */,
+				3B16BF7E256B6B690098FBB0 /* SignUpView.swift in Sources */,
 				3B1491CA2552E1C200C957BC /* UserImage.swift in Sources */,
 				3B6DA7B125498DE500555B2F /* LoginResponse.swift in Sources */,
 			);
