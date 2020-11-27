@@ -8,12 +8,19 @@
 
 import UIKit
 
+protocol SignInVCProtocol: class{
+    func showAlert(alertTitle: String, message: String, actionTitle: String)
+    func showLoader()
+    func hideLoader()
+    func goToTodoListVC()
+    func goToSignUpVC()
+}
+
 class SignInVC: UIViewController {
     
-    // MARK:- Outlets
-    
+
     // MARK:- Properties
-    var presenter: SignInPresenter!
+    var viewModel: SignInViewModelProtocol!
     @IBOutlet var signInView: SignInView!
     
     // MARK:- Lifecycle methods
@@ -38,13 +45,13 @@ class SignInVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> SignInVC {
         let signInVC: SignInVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signInVC)
-        signInVC.presenter = SignInPresenter(view: signInVC)
+        signInVC.viewModel = SignInViewModel(view: signInVC)
         return signInVC
     }
     
     // MARK:- Actions
     @IBAction func signInSubmittBtn(_ sender: UIButton) {
-        presenter.logInUser(email: signInView.userEmailTextField.text!, password: signInView.userPasswordTextField.text!)
+        viewModel.logInUser(email: signInView.userEmailTextField.text!, password: signInView.userPasswordTextField.text!)
         
     }
     
@@ -64,7 +71,7 @@ extension SignInVC{
 }
 
 // MARK:- extension SignIn Presenter
-extension SignInVC{
+extension SignInVC: SignInVCProtocol{
     
     func showAlert(alertTitle: String, message: String, actionTitle: String) {
         ShowAlertsManager.showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)

@@ -8,13 +8,19 @@
 
 import Foundation
 
-class SignInPresenter{
-    private weak var view: SignInVC!
+protocol SignInViewModelProtocol: class{
+    func logInUser(email: String, password: String)
+}
+
+class SignInViewModel{
+    //MARK:- Properties
+    private weak var view: SignInVCProtocol!
     
-    init(view: SignInVC){
+    init(view: SignInVCProtocol){
         self.view = view
     }
     
+    // MARK:- Private Methods
     private func userDataValidator(userEmail: String, Password: String)-> Bool{
         guard ValidationManager.shared().isValidEmail(email: userEmail) else{
             return false
@@ -70,7 +76,10 @@ class SignInPresenter{
             self.view.hideLoader()
         }
     }
-    
+}
+
+// MARK:- Extension SignInViewModel protocol Funcs
+extension SignInViewModel: SignInViewModelProtocol{
     func logInUser(email: String, password: String){
         if isDataEntered(userEmail: email, Password: password){
             if isValidRegex(userEmail: email, Password: password){
@@ -78,6 +87,4 @@ class SignInPresenter{
             }
         }
     }
-    
-    
 }

@@ -1,5 +1,5 @@
 //
-//  SignUpPresenter.swift
+//  SignUpViewModel.swift
 //  TODO-MVC-Demo
 //
 //  Created by yasser on 11/13/20.
@@ -8,31 +8,19 @@
 
 import Foundation
 
-class SignUpPresenter{
+protocol SignUpViewModelProtocol: class{
+    func signUpUser(name: String, email: String, password: String, age: String)
+}
+
+class SignUpViewModel{
+    //MARK:- Properties
+    private weak var view: SignUpVCProtocol!
     
-    private weak var view: SignUpVC!
-    
-    init(view: SignUpVC){
+    init(view: SignUpVCProtocol){
         self.view = view
     }
     
-//    private func userDataValidator( name: String, userEmail: String, Password: String, age: String)-> Bool{
-//        guard ValidatorManager.isValidEmail(email: userEmail) else{
-//            return false
-//        }
-//        guard ValidatorManager.isValidPassword(password: Password) else{
-//            return false
-//        }
-//        guard ValidatorManager.isValidName(name: name) else{
-//            return false
-//        }
-//        guard ValidatorManager.isValidAge(age: age) else{
-//            return false
-//        }
-//
-//        return true
-//    }
-    
+    // MARK:- Private Methods
     private func isDataEntered( name: String, userEmail: String, Password: String, age: String)-> Bool{
         guard ValidationManager.shared().isEmptyEmail(email: userEmail) else{
             view.showAlert(alertTitle: "Incompleted Data Entry",message: "Please Enter Email",actionTitle: "Dismiss")
@@ -82,11 +70,15 @@ class SignUpPresenter{
                 print("Sign Up Completed")
             }
             
+            
             self.view.goToSignInVC()
             self.view.hideLoader()
         }
     }
-    
+}
+
+// MARK:- Extension SignUpViewModel protocol Funcs
+extension SignUpViewModel: SignUpViewModelProtocol{
     func signUpUser(name: String, email: String, password: String, age: String){
         if isDataEntered(name: name, userEmail: email, Password: password, age: age)
         {
@@ -95,6 +87,4 @@ class SignUpPresenter{
             }
         }
     }
-    
-    
 }

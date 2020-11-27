@@ -8,16 +8,20 @@
 
 import UIKit
 
+protocol SignUpVCProtocol: class{
+    func showAlert(alertTitle: String, message: String, actionTitle: String)
+    func goToSignInVC()
+    func showLoader()
+    func hideLoader()
+}
+
 class SignUpVC: UIViewController {
     
     // MARK:- Outlets
-//    @IBOutlet weak var userNameTextField: UITextField!
-//    @IBOutlet weak var userEmailTextField: UITextField!
-//    @IBOutlet weak var userPasswordTextField: UITextField!
-//    @IBOutlet weak var userAgeTextField: UITextField!
+
     
     // MARK:- Properties
-    var presenter: SignUpPresenter!
+    var viewModel: SignUpViewModel!
     @IBOutlet var signUpView: SignUpView!
     
     
@@ -38,7 +42,7 @@ class SignUpVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> SignUpVC {
         let signUpVC: SignUpVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signUpVC)
-        signUpVC.presenter = SignUpPresenter(view: signUpVC)
+        signUpVC.viewModel = SignUpViewModel(view: signUpVC)
         return signUpVC
     }
     
@@ -46,7 +50,7 @@ class SignUpVC: UIViewController {
     
     // MARK:- Actions
     @IBAction func signUpSubmittBtnTapped(_ sender: UIButton) {
-       presenter.signUpUser(name: signUpView.userNameTextField.text!, email: signUpView.userEmailTextField.text!, password: signUpView.userPasswordTextField.text!, age: signUpView.userAgeTextField.text!)
+       viewModel.signUpUser(name: signUpView.userNameTextField.text!, email: signUpView.userEmailTextField.text!, password: signUpView.userPasswordTextField.text!, age: signUpView.userAgeTextField.text!)
     }
     
     @IBAction func signInBtnTapped(_ sender: UIButton) {
@@ -67,7 +71,7 @@ extension SignUpVC{
 }
 
 // MARK:- extension SignUp Presenter
-extension SignUpVC{
+extension SignUpVC: SignUpVCProtocol{
     func showAlert(alertTitle: String, message: String, actionTitle: String) {
         ShowAlertsManager.showAlertWithCancel(alertTitle: alertTitle, message: message, actionTitle: actionTitle)
     }

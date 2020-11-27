@@ -9,18 +9,31 @@
 import Foundation
 import UIKit
 
-class TodoListPresenter{
+protocol TodoListViewModelProtocol: class{
+    func getUserTasks()
+    func userTasksArrCount() -> Int
+    func configure(cell: todoCelldelegate, for index: Int)
+    func deleteTask()
+    func getTaskId(index: Int)
+    func addTask(task: String)
     
+}
+
+class TodoListViewModel {
+    
+    // Mark:- Properties
     private var userTasksArr = [TaskData]()
-    private weak var view: TodoListVC!
+    private weak var view: TodoListVCProtocol!
     
-    init(view: TodoListVC){
+    init(view: TodoListVCProtocol){
         self.view = view
     }
-    
-     func getUserTasks(){
+}
+
+// MARK:- Extension Todolist protocol Funcs
+extension TodoListViewModel: TodoListViewModelProtocol{
+    func getUserTasks(){
         view.showLoader()
-        
         APIManager.getUserTasksAPIRouter{ (response) in
             switch response{
             case .failure(let error):
@@ -41,7 +54,6 @@ class TodoListPresenter{
                 self.view.hideLoader()
                 self.view.reloadDataWithoutScroll()
             }
-            
         }
     }
     
@@ -56,20 +68,20 @@ class TodoListPresenter{
     
     func deleteTask(){
         view.showLoader()
-            APIManager.deleteTaskAPIRouter{ (response) in
-                switch response{
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .success(let result):
-                    print("The task is deleted ")
-                    print(result)
-                }
-                DispatchQueue.main.async {
-                    self.getUserTasks()
-                    self.view.reloadDataWithoutScroll()
-                }
-                self.view.hideLoader()
+        APIManager.deleteTaskAPIRouter{ (response) in
+            switch response{
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let result):
+                print("The task is deleted ")
+                print(result)
             }
+            DispatchQueue.main.async {
+                self.getUserTasks()
+                self.view.reloadDataWithoutScroll()
+            }
+            self.view.hideLoader()
+        }
     }
     
     func getTaskId(index: Int){
@@ -78,20 +90,19 @@ class TodoListPresenter{
     }
     
     func addTask(task: String){
-                self.view.showLoader()
-                APIManager.addTaskAPIRouter(description: task){ (response) in
-                    switch response{
-                    case .failure(let error):
-                        self.view.showAlert(alertTitle: "Error",message: "\(error.localizedDescription)",actionTitle: "Dismiss")
-                    case .success(let result):
-                        print(result)
-                        self.getUserTasks()
-                    }
-                    DispatchQueue.main.async {
-                        self.view.reloadDataWithoutScroll()
-                    }
-                    self.view.hideLoader()
-                }
+        self.view.showLoader()
+        APIManager.addTaskAPIRouter(description: task){ (response) in
+            switch response{
+            case .failure(let error):
+                self.view.showAlert(alertTitle: "Error",message: "\(error.localizedDescription)",actionTitle: "Dismiss")
+            case .success(let result):
+                print(result)
+                self.getUserTasks()
+            }
+            DispatchQueue.main.async {
+                self.view.reloadDataWithoutScroll()
+            }
+            self.view.hideLoader()
+        }
     }
-    
 }

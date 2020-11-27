@@ -12,10 +12,19 @@ protocol todoCelldelegate{
     func displayTaskDescription(description: String)
 }
 
+protocol TodoListVCProtocol: class{
+    func deleteTaskAlert(index: Int)
+    func addTaskAlert()
+    func reloadDataWithoutScroll()
+    func showAlert(alertTitle: String, message: String, actionTitle: String)
+    func showLoader()
+    func hideLoader()
+}
+
 class TodoListVC: UIViewController {
     
     // MARK:- Properties
-    var presenter: TodoListPresenter!
+    var viewModel: TodoListViewModelProtocol!
     
     // MARK:- Outlets
     @IBOutlet weak var tableView: UITableView!
@@ -31,21 +40,21 @@ class TodoListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //getUserTasks()
-        presenter.getUserTasks()
+        viewModel.getUserTasks()
         self.tableView.reloadDataWithoutScroll()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //getUserTasks()
-        presenter.getUserTasks()
+        viewModel.getUserTasks()
         self.tableView.reloadDataWithoutScroll()
     }
     
     // MARK:- Public Methods
     class func create() -> TodoListVC {
         let todoListVC: TodoListVC = UIViewController.create(storyboardName: Storyboards.main, identifier: ViewControllers.todoListVC)
-        todoListVC.presenter = TodoListPresenter(view: todoListVC)
+        todoListVC.viewModel = TodoListViewModel(view: todoListVC)
         return todoListVC
     }
     
@@ -55,14 +64,14 @@ class TodoListVC: UIViewController {
 // MARK:- Tableview Extension
 extension TodoListVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.userTasksArrCount()
+        return viewModel.userTasksArrCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cells.TodoCell, for: indexPath) as? TodoCell else{
             return UITableViewCell()
         }
-        presenter.configure(cell: cell, for: indexPath.row)
+        viewModel.configure(cell: cell, for: indexPath.row)
         cell.deleteTaskBtn.tag = indexPath.row
         cell.deleteTaskBtn.addTarget(self, action: #selector(deleteTaskBtnTapped(_:)), for: .touchUpInside)
         return cell
@@ -127,13 +136,13 @@ extension TodoListVC{
     }
 }
 
-extension TodoListVC{
+extension TodoListVC: TodoListVCProtocol{
     func deleteTaskAlert(index: Int){
-        presenter.getTaskId(index: index)
+        viewModel.getTaskId(index: index)
         let deleteAlert = UIAlertController(title: "Sorry", message: "Are You Sure You Want To Delete This Task?", preferredStyle: .alert)
         deleteAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         deleteAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-            self.presenter.deleteTask()
+            self.viewModel.deleteTask()
         }))
         present(deleteAlert,animated: true, completion: nil )
     }
@@ -147,7 +156,7 @@ extension TodoListVC{
         let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
             let taskTextField = alertController.textFields![0] as UITextField
             if let taskTF = taskTextField.text{
-                self.presenter.addTask(task: taskTF)
+                self.viewModel.addTask(task: taskTF)
             }else{
                 self.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
             }

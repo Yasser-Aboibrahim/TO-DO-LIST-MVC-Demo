@@ -9,12 +9,23 @@
 import UIKit
 import SDWebImage
 
+protocol ProfileVCProtocol: class{
+    func updateUserDataAlert()
+    func successfullyLoggedOut()
+    func showAlert(alertTitle: String, message: String, actionTitle: String)
+    func setUserData(userData: UserData)
+    func setUserImage(image: UIImage)
+    func userNameWithNoImage(nameInitials: String)
+    func showLoader()
+    func hideLoader()
+}
+
 class ProfileVC: UITableViewController {
 
     // MARK:- Properties
     var userData: UserData?
     let imagepicker = UIImagePickerController()
-    var presenter: ProfilePresenter!
+    var viewModel: ProfileViewModelProtocol!
     
     // MARK:- Outlets
     @IBOutlet weak var nameLabel: UILabel!
@@ -28,12 +39,12 @@ class ProfileVC: UITableViewController {
         super.viewDidLoad()
         setNavbar()
         imagepicker.delegate = self
-        presenter.getUserData()
+        viewModel.getUserData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.getUserImage()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,14 +54,14 @@ class ProfileVC: UITableViewController {
     // MARK:- Public Methods
     class func create() -> ProfileVC {
         let profileVC: ProfileVC = UIViewController.create(storyboardName: Storyboards.main, identifier: ViewControllers.profileVC)
-        profileVC.presenter = ProfilePresenter(view: profileVC.self)
+        profileVC.viewModel = ProfileViewModel(view: profileVC.self)
         return profileVC
     }
     
     
     // MARK:- Actions
     @IBAction func logOutBtn(_ sender: UIButton) {
-        presenter.logOut()
+        viewModel.logOut()
     }
     
     @IBAction func updateUserDataBtnTapped(_ sender: UIButton) {
@@ -63,7 +74,7 @@ extension ProfileVC: UIImagePickerControllerDelegate , UINavigationControllerDel
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            presenter.uploadUserImage(image: pickedImage)
+            viewModel.uploadUserImage(image: pickedImage)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -94,7 +105,7 @@ extension ProfileVC{
     }
 }
 
-extension ProfileVC{
+extension ProfileVC: ProfileVCProtocol{
     func updateUserDataAlert(){
         let alertController = UIAlertController(title: "Update Age", message: "", preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
@@ -103,7 +114,7 @@ extension ProfileVC{
         let saveAction = UIAlertAction(title: "Save", style: UIAlertAction.Style.default, handler: { alert -> Void in
             let taskTextField = alertController.textFields![0] as UITextField
             if let taskTF = Int(taskTextField.text ?? ""){
-               self.presenter.updateUserData(age: taskTF)
+               self.viewModel.updateUserData(age: taskTF)
             }else{
                 self.showAlert(alertTitle: "Error",message: "Please try again",actionTitle: "Dismiss")
             }
