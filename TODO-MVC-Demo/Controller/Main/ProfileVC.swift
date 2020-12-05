@@ -9,6 +9,11 @@
 import UIKit
 import SDWebImage
 
+// 1-
+protocol MainNavigationDelegate: class {
+    func showAuthState()
+}
+
 protocol ProfileVCProtocol: class{
     func updateUserDataAlert()
     func successfullyLoggedOut()
@@ -26,7 +31,8 @@ class ProfileVC: UITableViewController {
     var userData: UserData?
     let imagepicker = UIImagePickerController()
     var viewModel: ProfileViewModelProtocol!
-    
+    // 2-
+    weak var delegate: MainNavigationDelegate?
     // MARK:- Outlets
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -54,7 +60,7 @@ class ProfileVC: UITableViewController {
     // MARK:- Public Methods
     class func create() -> ProfileVC {
         let profileVC: ProfileVC = UIViewController.create(storyboardName: Storyboards.main, identifier: ViewControllers.profileVC)
-        profileVC.viewModel = ProfileViewModel(view: profileVC.self)
+        profileVC.viewModel = ProfileViewModel(view: profileVC)
         return profileVC
     }
     
@@ -87,8 +93,8 @@ extension ProfileVC: UIImagePickerControllerDelegate , UINavigationControllerDel
 // MARK:- Extension Private Methods
 extension ProfileVC{
     private func goToSignInVC() {
-        let signInVC = SignInVC.create()
-        navigationController?.pushViewController(signInVC, animated: true)
+        // 3-
+        self.delegate?.showAuthState()
     }
     
     private func setNavbar(){
@@ -156,6 +162,5 @@ extension ProfileVC: ProfileVCProtocol{
     func hideLoader() {
         self.view.hideLoading()
     }
-    
-    
 }
+

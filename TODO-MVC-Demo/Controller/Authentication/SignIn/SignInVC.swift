@@ -8,6 +8,11 @@
 
 import UIKit
 
+// 1-
+protocol AuthNavigationDelegate: class {
+    func showMainState()
+}
+
 protocol SignInVCProtocol: class{
     func showAlert(alertTitle: String, message: String, actionTitle: String)
     func showLoader()
@@ -22,6 +27,8 @@ class SignInVC: UIViewController {
     // MARK:- Properties
     var viewModel: SignInViewModelProtocol!
     @IBOutlet var signInView: SignInView!
+    // 2-
+    weak var delegate: AuthNavigationDelegate?
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
@@ -86,8 +93,10 @@ extension SignInVC: SignInVCProtocol{
     }
     
     func goToTodoListVC(){
-        let todoListVC = TodoListVC.create()
-        navigationController?.pushViewController(todoListVC, animated: true)
+        // 3-
+        self.delegate?.showMainState()
+//        let todoListVC = TodoListVC.create()
+//        navigationController?.pushViewController(todoListVC, animated: true)
     }
     
     

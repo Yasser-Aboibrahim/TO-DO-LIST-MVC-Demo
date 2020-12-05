@@ -131,8 +131,7 @@ extension TodoListVC{
     }
     
     private func goToProfileVC() {
-        let profileVC = ProfileVC.create()
-        navigationController?.pushViewController(profileVC, animated: true)
+        AppStateManager.shared().profileToAuthState()
     }
 }
 

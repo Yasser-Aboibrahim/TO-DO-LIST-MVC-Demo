@@ -57,6 +57,7 @@ extension ProfileViewModel: ProfileViewModelProtocol{
             DispatchQueue.main.async {
                 self.view.hideLoader()
                 UserDefaultsManager.shared().token?.removeAll()
+                UserDefaultsManager.shared().isLoggedIn = false
                 self.view.successfullyLoggedOut()
             }
         }

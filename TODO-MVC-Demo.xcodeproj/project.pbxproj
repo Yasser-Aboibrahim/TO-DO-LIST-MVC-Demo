@@ -23,6 +23,7 @@
 		3B47CEE7255ED40700534E41 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE6255ED40700534E41 /* SignUpViewModel.swift */; };
 		3B47CEE9255EE46400534E41 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47CEE8255EE46400534E41 /* ProfileViewModel.swift */; };
 		3B636F10256A8D3E0085C74D /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B636F0F256A8D3E0085C74D /* ValidationManager.swift */; };
+		3B6D5AAD257911C200B5D97B /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D5AAC257911C200B5D97B /* AppStateManager.swift */; };
 		3B6DA78E25498AE300555B2F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6DA78D25498AE300555B2F /* AppDelegate.swift */; };
 		3B6DA79325498AE300555B2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B6DA79125498AE300555B2F /* Main.storyboard */; };
 		3B6DA79525498AEA00555B2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B6DA79425498AEA00555B2F /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		3B47CEE6255ED40700534E41 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		3B47CEE8255EE46400534E41 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		3B636F0F256A8D3E0085C74D /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
+		3B6D5AAC257911C200B5D97B /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		3B6DA78A25498AE300555B2F /* TODO-MVC-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TODO-MVC-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B6DA78D25498AE300555B2F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B6DA79225498AE300555B2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +141,15 @@
 			path = SignIn;
 			sourceTree = "<group>";
 		};
+		3B6D5AAB257910AD00B5D97B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3B6DA78D25498AE300555B2F /* AppDelegate.swift */,
+				3B6D5AAC257911C200B5D97B /* AppStateManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		3B6DA78125498AE300555B2F = {
 			isa = PBXGroup;
 			children = (
@@ -160,7 +171,7 @@
 		3B6DA78C25498AE300555B2F /* TODO-MVC-Demo */ = {
 			isa = PBXGroup;
 			children = (
-				3B6DA78D25498AE300555B2F /* AppDelegate.swift */,
+				3B6D5AAB257910AD00B5D97B /* Shared */,
 				3B6DA79F25498C3E00555B2F /* Networking */,
 				3B6DA7A325498C8000555B2F /* Managers */,
 				3B6DA7A225498C7400555B2F /* Utilities */,
@@ -169,7 +180,6 @@
 				3B6DA7A625498C9F00555B2F /* View */,
 				3B16BF78256B69460098FBB0 /* ViewModel */,
 				3B6DA7A525498C9500555B2F /* Controller */,
-				3B6DA7A425498C8800555B2F /* Resources */,
 				3B6DA79925498AEA00555B2F /* Info.plist */,
 			);
 			path = "TODO-MVC-Demo";
@@ -231,7 +241,8 @@
 				3B6DA7BD25498FCF00555B2F /* Assets */,
 				3B6DA7BC25498F7200555B2F /* Storyboards */,
 			);
-			path = Resources;
+			name = Resources;
+			path = ../../Resources;
 			sourceTree = "<group>";
 		};
 		3B6DA7A525498C9500555B2F /* Controller */ = {
@@ -266,6 +277,7 @@
 			children = (
 				3B6DA7BA25498EFF00555B2F /* TodoListVC.swift */,
 				3B278ADD254E14DA000CD8CE /* ProfileVC.swift */,
+				3B6DA7A425498C8800555B2F /* Resources */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -423,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B278ADE254E14DA000CD8CE /* ProfileVC.swift in Sources */,
+				3B6D5AAD257911C200B5D97B /* AppStateManager.swift in Sources */,
 				3B47CEE7255ED40700534E41 /* SignUpViewModel.swift in Sources */,
 				3B266ECB255F131000828EF3 /* TodoListViewModel.swift in Sources */,
 				3B01663925583EEA006426C9 /* APIRouter.swift in Sources */,
