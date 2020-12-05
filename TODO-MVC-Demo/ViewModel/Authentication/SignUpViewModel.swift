@@ -13,6 +13,7 @@ protocol SignUpViewModelProtocol: class{
 }
 
 class SignUpViewModel{
+    
     //MARK:- Properties
     private weak var view: SignUpVCProtocol!
     

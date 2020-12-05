@@ -177,9 +177,8 @@
 				3B6DA7A225498C7400555B2F /* Utilities */,
 				3B6DA7A125498C6B00555B2F /* Extensions */,
 				3B6DA7A025498C5F00555B2F /* Model */,
-				3B6DA7A625498C9F00555B2F /* View */,
 				3B16BF78256B69460098FBB0 /* ViewModel */,
-				3B6DA7A525498C9500555B2F /* Controller */,
+				3B6DA7A525498C9500555B2F /* View */,
 				3B6DA79925498AEA00555B2F /* Info.plist */,
 			);
 			path = "TODO-MVC-Demo";
@@ -245,22 +244,23 @@
 			path = ../../Resources;
 			sourceTree = "<group>";
 		};
-		3B6DA7A525498C9500555B2F /* Controller */ = {
+		3B6DA7A525498C9500555B2F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3B6DA7A625498C9F00555B2F /* CustomView */,
 				3B6DA7B425498E4100555B2F /* Authentication */,
 				3B6DA7B925498EDD00555B2F /* Main */,
 			);
-			path = Controller;
+			path = View;
 			sourceTree = "<group>";
 		};
-		3B6DA7A625498C9F00555B2F /* View */ = {
+		3B6DA7A625498C9F00555B2F /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
 				3B1DC0B2254CE0CA00D8323A /* TodoCell.swift */,
 				3B1DC0B3254CE0CA00D8323A /* TodoCell.xib */,
 			);
-			path = View;
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		3B6DA7B425498E4100555B2F /* Authentication */ = {

@@ -23,11 +23,11 @@ protocol TodoListVCProtocol: class{
 
 class TodoListVC: UIViewController {
     
-    // MARK:- Properties
-    var viewModel: TodoListViewModelProtocol!
-    
     // MARK:- Outlets
     @IBOutlet weak var tableView: UITableView!
+    
+    // MARK:- Properties
+    var viewModel: TodoListViewModelProtocol!
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {

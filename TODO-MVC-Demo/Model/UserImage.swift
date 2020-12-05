@@ -6,7 +6,7 @@
 //  Copyright © 2020 Yasser Aboibrahim. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 
 struct UserImage: Codable{

@@ -17,9 +17,6 @@ protocol SignUpVCProtocol: class{
 
 class SignUpVC: UIViewController {
     
-    // MARK:- Outlets
-
-    
     // MARK:- Properties
     var viewModel: SignUpViewModel!
     @IBOutlet var signUpView: SignUpView!

@@ -27,18 +27,19 @@ protocol ProfileVCProtocol: class{
 
 class ProfileVC: UITableViewController {
 
-    // MARK:- Properties
-    var userData: UserData?
-    let imagepicker = UIImagePickerController()
-    var viewModel: ProfileViewModelProtocol!
-    // 2-
-    weak var delegate: MainNavigationDelegate?
     // MARK:- Outlets
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameWithNoImage: UILabel!
+    
+    // MARK:- Properties
+    var userData: UserData?
+    let imagepicker = UIImagePickerController()
+    var viewModel: ProfileViewModelProtocol!
+    // 2-
+    weak var delegate: MainNavigationDelegate?
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {

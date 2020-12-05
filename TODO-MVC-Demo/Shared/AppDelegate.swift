@@ -25,9 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    
-    
-    
 }
 
 extension AppDelegate: AppDelegateProtocol {
@@ -35,10 +32,4 @@ extension AppDelegate: AppDelegateProtocol {
         return self.window
     }
 }
-
-//extension AppDelegate {
-//    static func shared() -> AppDelegate {
-//        return UIApplication.shared.delegate as! AppDelegate
-//    }
-//}
 
